@@ -1,0 +1,1268 @@
+ESTE DOCUMENTO ES UN JUPYTER NOTEBOOK. UN JUPYTER NOTEBOOK ES COMO UN LIBRO DE TEXTO PERO PARA PROGRAMAR. EN ESTE JUPYTER NOTEBOOK PUEDES MODIFICAR CAMBIAR Y EJECUTAR CODIGO DE PYTHON . CADA CASILLA/CELDA
+Mi informacion:
+Victor Salazar
+victor12lup@hotmail.com
+BSC Economia, MsC Data Science
+EL famoso 'Hello Python'
+En Python
+[ ]
+print('Hola mundo soy Danae')
+# La funcion print "imprime" lo que este entre comillas
+# las lineas que empiezan con # son comentarios, estos no son parte del codigo 
+# trata de usarlos siempre que puedas cuando compartas codigo o solo para desarrollar codigo, te sera muy util!
+Hola mundo soy Danae
+Historia de Python
+Python lleva el nombre del programa de televisión de la BBC Monty Python's Flying Circus(https://www.youtube.com/watch?v=vZw35VUBdzo)
+Iniciado por Guido van Rossum en Amsterdam en el : "Instituto Nacional de Investigación en Matemáticas e Informática"
+Primera versión publicada en 1991
+Lectura opcional
+https://docs.python.org/3/reference/datamodel.html capitulo 3.1
+From https://docs.python.org/3/tutorial/index.html capitulo 3.1 y capitulo 5 , secciones 5.1.1, 5.2, 5.4, y 5.5.
+Ecomista Paul Romer sobre Jupyter https://paulromer.net/jupyter-mathematica-and-the-future-of-the-research-paper/
+(https://www.python.org/dev/peps/pep-0008/)
+(https://en.wikipedia.org/wiki/Python_syntax_and_semantics)
+Los lenguajes informáticos deben ser leídos por humanos
+Las computadoras solo entienden ceros y unos
+Por lo tanto, los lenguajes informáticos deben traducirse en esos ceros y unos a algo que la computadora entiende
+Dos tipos de traducción: Interpretación y compilación
+Los programas escritos en idiomas interpretados se traducen y ejecutan línea por línea
+Los programas escritos en lenguajes interpretados a menudo se denominan scripts
+Los programas escritos en lenguajes compilados se traducen y ejecutan programa (o más) por programa
+La traducción de programas completos a menudo se llama compilación
+La interpretación es excelente para un ciclo de desarrollo rápido
+La compilación es excelente para la eficiencia y la velocidad
+Observaciones:
+En general, podemos decir que la velocidad y la eficiencia son un cuello de botella menor a medida que las computadoras se vuelven cada vez más rápidas y Python usa muchas rutinas escritas en C, que es muy rápido.
+Python no traduce el código directamente a código de máquina, sino a un código que es el mismo para todos los sistemas operativos como Windows, OS X, Linux, etc. Este código intermedio es ejecutado por una máquina virtual que traduce el código intermedio a código de máquina específico legible y ejecutable por los diferentes sistemas operativos como Windows, OS X, Linux, etc.
+Python es traducido y ejecutado linea por linea
+[ ]
+entero_1 = 100
+print (entero_1)
+integer_2 = 200
+print (integer_2)
+100
+200
+[ ]
+# Definimos un objeto con valor 1, le asignamos de nombre integer_1, de typo int 
+entero_1 = 1
+# Le damos el valor definido en la pantalla 
+print(entero_1)
+
+integer_2 = 2
+print(integer_2)
+1
+2
+El codigo de Python es traducido a un lenguaje intermedio
+[ ]
+# Creamos una funcion
+def make_quadratic_list(function_list):
+    #Usaremos uns comprension de lista para contruir otra lista
+    return [x*x for x in function_list]    
+
+# Llamamos una funcion y le damos los valores en una lista
+print(make_quadratic_list([1,2,3]))
+[1, 4, 9]
+[ ]
+# Muchas funciones de Pyton deben ser importadas para su uso 
+import dis
+def make_quadratic_list(function_list):
+    return [x*x for x in function_list]    
+
+# La funcion dis.dis muestra el codigo intermediario que es usado para que Python traduzca 
+dis.dis(make_quadratic_list)
+  4           0 LOAD_CONST               1 (<code object <listcomp> at 0x000001D98CCFDDF0, file "<ipython-input-5-e5aeeaf2cd37>", line 4>)
+              2 LOAD_CONST               2 ('make_quadratic_list.<locals>.<listcomp>')
+              4 MAKE_FUNCTION            0
+              6 LOAD_FAST                0 (function_list)
+              8 GET_ITER
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
+
+Disassembly of <code object <listcomp> at 0x000001D98CCFDDF0, file "<ipython-input-5-e5aeeaf2cd37>", line 4>:
+  4           0 BUILD_LIST               0
+              2 LOAD_FAST                0 (.0)
+        >>    4 FOR_ITER                12 (to 18)
+              6 STORE_FAST               1 (x)
+              8 LOAD_FAST                1 (x)
+             10 LOAD_FAST                1 (x)
+             12 BINARY_MULTIPLY
+             14 LIST_APPEND              2
+             16 JUMP_ABSOLUTE            4
+        >>   18 RETURN_VALUE
+La semana 1 se trata principalmente de datos, pero, por supuesto, queremos hacer algo con esos datos
+Python tiene un conjunto completo de operadores disponibles, consulte https://www.w3resource.com/python/python-operators.php, puede omitir los comandos de operador y comenzar con los operadores aritméticos de Python
+Un tema importante con los operadores es la precedencia o dicho de otra manera, si tiene más de un operador en una declaración, que se interpretará primero. En matemáticas sabemos que 2 + 2 x 3 = 8 y no 12. Decimos que la multiplicación tiene prioridad sobre la suma. Como tenemos muchos más operadores en Python, necesitamos una tabla grande sobre precedencia. Una buena tabla se encuentra en el capítulo 6.17 en https://docs.python.org/3/reference/expressions.html que puede omitir para ahora los operadores que no están en el documento anterior, pero recuerda cada vez que veas un nuevo operador echa un vistazo
+Nunca olvides que los paréntesis tienen la precedencia más alta. Por lo tanto, siempre es posible escapar de los problemas de precedencia agregando paréntesis
+Los operadores son muy importantes si desea procesar datos, pero en las semanas 3 y 5 descubrirá que puede expandir sus posibilidades dramáticamente escribiendo sus propias funciones y clases
+[ ]
+# operadores estandares en Python
+print(1 + 2 * 3 - 4 / 5)
+# Uso de parentesis
+print((1 + 2) * (3 - 4 / 5))
+6.2
+6.6000000000000005
+Los datos en un programa de Python se almacenarán como bits (ceros y unos) en la memoria de la computadora, pero se representarán como objetos para los humanos.
+Son estos objetos con los que tenemos que lidiar, el interpretador traducirá nuestras referencias a objetos en referencias a lugares en la memoria de la computadora.
+Los objetos en Python tienen:
+Una identidad, en la versión Python de Anaconda es la dirección en la memoria de la computadora, donde se almacena el valor. La identidad no se puede cambiar.
+Un tipo de datos, como entero, cadena, lista, etc. El tipo de datos no se puede cambiar
+Un valor, como 10, 'Hello World', [1,2,3]. El valor se puede cambiar o no según el tipo de datos. Si el valor de un objeto se puede cambiar, el objeto se llama mutable; de lo contrario, el objeto se llama inmutable.
+Se puede crear un objeto y adjuntar un nombre a un objeto a través de una declaración de asignación (por ejemplo, a = 1
+Se puede hacer referencia a un objeto con más de un nombre, pero un nombre solo puede hacer referencia a un objeto
+Solo se pueden asignar nombres a objetos si:
+Ese nombre comienza con una letra (A-z) o un carácter de subrayado (_)
+Ese nombre solo contiene caracteres alfanuméricos (A-z, 0-9) y guiones bajos
+En los nombres se distingue mayúsculas y minúsculas (edad, Edad, y EDAD son diferentes)
+Recolección de basura
+Los datos utilizados en un programa ocupan la memoria de la computadora. Por lo tanto, la creación de muchos objetos de datos de gran tamaño podría sobrecargar la memoria de la computadora.
+Python (y algunos otros lenguajes de programación) tienen un buen truco para resolver ese problema. Si Python nota que ya no hay nombres adjuntos a un objeto, el objeto se destruye en un proceso llamado "recolección de basura". Si no hay nombres adjuntos a un objeto, nadie puede usarlo más y, por lo tanto, es mejor destruirlo. En otros idiomas, debe programar la recolección de basura usted mismo y debe tener cuidado de no destruir los objetos que aún se necesitan o mantener los que ya no se necesitan.
+Ejemplos (estos son ejemplos importantes, no entender cómo Python maneja los datos puede conducir a problemas muy difíciles de resolver)
+[ ]
+# La siguiente declaración de asignación crea un objeto con valor 2000 y tipo entero, y
+# también adjunta el nombre integer_1 al objeto recién creado
+integer_1 = 2000
+# La siguiente declaración de asignación no crea un objeto, pero
+# también adjunta el nombre integer_2 al objeto que ya tiene el nombre integer_1 adjunto
+# El mismo objeto ahora tiene dos nombres
+integer_2 = integer_1
+# Podemos probar si los nombres integer_1 e integer_2 se refieren a un objeto con el mismo valor
+# Si eso es Verdadero, la siguiente declaración de impresión debería imprimir Verdadero y, de lo contrario, debería imprimir falso
+print(integer_1 == integer_2)
+# Podemos probar tambien si integer_1 y integer_2 se refieren al mismo objeto
+print(integer_1 is not integer_2)
+# Es lo mismo que decir si el id de un objeto es el mismo
+print(id(integer_1) == id(integer_2))
+# Aqui imprimimos el id de un objeto 
+print(id(integer_1))
+True
+False
+True
+140069318150256
+[ ]
+integer_1 = 2000
+integer_2 = integer_1
+integer_2 = 1000
+# La declaración de asignación anterior crea un nuevo objeto con valor 1000
+# separa el nombre integer_2 del objeto con valor 2000, y
+# adjunta el nombre integer_2 al nuevo objeto
+print(integer_1, integer_2)
+2000 1000
+[ ]
+# La siguiente declaración de asignación crea un objeto con valor 1000 y tipo entero
+# La siguiente declaración de asignación también adjunta el nombre integer_1 al objeto
+integer_1 = 1000
+print(id(integer_1))
+# La siguiente declaración de asignación crea un objeto con valor "data" y tipo cadena,
+# también separa el nombre entero_1 del objeto con valor 1, y
+# adjunta el nombre integer_1 al objeto recién creado con el valor "data"
+integer_1 = "data"
+# The following statement shows us that the name integer_1 now refers to a different object
+print(id(integer_1))
+2033882132720
+2033807345136
+Los siguientes ejemplos son sobre prácticas, esto es bastante complicado. A veces, esperaría que Python creara un nuevo objeto, pero Python no lo hace y, en parte, está fuera de su control y depende de la implementación de Python que use.
+[ ]
+# En este ejemplo, una cadena está guardada y la segunda asignación no crea un nuevo objeto 
+string_1 = 'string'
+string_2 = 'string'
+print (string_1 is string_2)
+True
+[ ]
+# En este ejemplo, una cadena no está guardada y la segunda asignación crea un nuevo objeto string_1 = 'This string is not interned'
+string_2 = 'This string is not interned'
+print (string_1 is string_2)
+False
+[ ]
+integer_1 = 1 
+integer_2 = 1
+print (integer_1 is integer_2)
+True
+[ ]
+integer_1 = 1000
+integer_2 = 1000
+print (integer_1 is integer_2)
+False
+Primero discutimos los tipos de datos que describen objetos de valor único. Estos son números, cadenas y booleanos y, posteriormente, tipos de datos que describen objetos con una colección de valores.
+Números
+Todos los números (enteros, números de coma flotante, números complejos, decimales y fracciones) son inmutables
+Enteros
+Estos son números enteros (-10,1,2)
+Solo el hardware de la computadora limita el limite de un número entero y, por lo tanto, los números enteros son muy precisos
+[ ]
+↳ 2 celdas ocultas
+Enteros expresados en diferentes maneras
+Números decimales vs a números binarios/octales/hexidecimales
+Los números en matemáticas se basan en el sistema numérico posicional. Entonces, cada dígito en un número tiene una contribución al valor total del número que depende de su posición en ese número y si el número es binario/octal/decimal/hexidecimal.
+En números decimales, el dígito más a la derecha tiene una contribución al valor total que es solo el valor de ese dígito, el que está a la izquierda tiene una contribución al valor total de su propio valor multiplicado por 10, y para el que está a la izquierda de ese que su contribución es su propio valor multiplicado por 100 (10 a la potencia 2) etc. (Los números decimales usan solo dígitos entre 0 y 9).
+En números binarios, el dígito más a la derecha tiene una contribución al valor total que es solo el valor de ese dígito, el que está a la izquierda tiene una contribución al valor total de su propio valor multiplicado por 2, y para el que está a la izquierda de ese que su contribución es su propio valor multiplicado por 4 (2 elevado a 2), etc. (Los números binarios usan solo 0 y 1).
+En números octales, el dígito más a la derecha tiene una contribución al valor total que es solo el valor de ese dígito, el que está a la izquierda tiene una contribución al valor total de su propio valor multiplicado por 8, y para el que está a la izquierda de ese que su contribución es su propio valor multiplicado por 64 (8 elevado a 2), etc. (Los números octales usan solo dígitos entre 0 y 7).
+En números hexadecimales, el dígito más a la derecha tiene una contribución al valor total que es solo el valor de ese dígito, el que está a la izquierda tiene una contribución al valor total de su propio valor multiplicado por 16, y para el que está a la izquierda de aquél cuya contribución es su propio valor multiplicado por 256 (16 a la potencia 2) etc. (Los números hexadecimales usan todos los dígitos entre 0 y 90, y A para 10, B para 11, hasta F para 15.)
+Entonces 111 binario es 1 + 1 * 2 + 1 * 4 = 7 decimal
+Los números en representación alternativa deben comenzar con dos caracteres que indican qué sistema numérico alternativo se utiliza
+[ ]
+print(0b11010) 
+# Binary number 11010
+print(0o32)    
+# Octal number 112 
+print(26)      
+# Decimal number 26
+print(0x1A)    
+# Hexadecimal number 1A
+print (0b11010 == 0o32 == 26 == 0x1A )
+26
+26
+26
+26
+True
+Números de punto flotante
+un número que contiene una parte fraccionaria (1.3, -1.3, 0.0)
+Los números de punto flotante se almacenan en un espacio limitado en la memoria de la computadora y, por lo tanto, no tienen una precisión ilimitada
+[ ]
+print(4.2)
+print(1.00)
+4.2
+1.0
+Los números de punto flotante también se pueden representar en notación científica, e.g.: 132.2=1.322×102
+La notación en Python es 1.322e2
+[ ]
+float_1 = 132.2
+scientific = 1.322e2
+print(float_1)
+print(scientific)
+print(float_1 == scientific)
+132.2
+132.2
+True
+Vimos que los números enteros eran infinitamente precisos, este no es el caso de los números de punto flotante, para mas info consulte https://en.wikipedia.org/wiki /Floating-point_arithmetic
+[ ]
+float_1 = 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.0
+float_2 = float_1 + 1
+print(float_1 == float_2)
+True
+[ ]
+float_1 = 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.0
+print(float_1)
+float_2 = float_1 + 1
+print (float_2)
+print(float_1 == float_2)
+1e+91
+1e+91
+True
+[ ]
+print(1e48*1e300)
+float_3 = 1e-322
+print(float_3 / 10)
+print(float_3 / 100)
+inf
+1e-323
+0.0
+[ ]
+print((2 ** .5) ** 2 == 2)
+False
+Números complejos,
+Trabaja igual que en tus clases de matemáticas, pero en vez de i se usa la letra j para la parte imaginaria
+Para mejor precision, podría ser mejor importar métodos especiales de la biblioteca cmath, en lugar de usar operadores estándares
+[ ]
+print((-1 + 0j) ** .5)
+(6.123233995736766e-17+1j)
+[ ]
+from cmath import sqrt
+
+print(sqrt(-1))
+1j
+Decimales
+Decimales pueden ser tan precisos en comparacion de numeros de punto flotante
+[ ]
+print (1.1 + 2.2)
+from decimal import Decimal, getcontext
+print(Decimal('1.1') + Decimal('2.2')  )
+3.3000000000000003
+3.3
+[ ]
+print(1.1+ 2.2)
+from decimal import Decimal, getcontext
+print(Decimal('1.1') + Decimal('2.2'))
+print(Decimal(1.1) + Decimal(2.2))
+3.3000000000000003
+3.3
+3.300000000000000266453525910
+[ ]
+
+Fracción
+Las fracciones funcionan como se esperaba y hacen toda la simplificación necesaria automáticamente
+[ ]
+print(1/7+1/6)
+from fractions import Fraction
+print(Fraction(1, 7) + Fraction(1, 6))
+0.30952380952380953
+13/42
+Cadenas (Strings)
+[ ]
+string_1 = "Text"
+string_2 = 'Text'
+print (string_1 is string_2)
+True
+[ ]
+string_1 = 'Text'
+Sequencias de escape
+Un Sequencia de escape le permite usar caracteres que de otro modo serían imposibles de poner en una cadena
+Un Sequencia de escape consta de una barra invertida () seguida del carácter que desea agregar a la cadena
+Hay muchas sequencia de escape, eche un vistazo a los siguientes sitios web. Es bueno que sepas que todas estas posibilidades existen.
+Resumen completo[(https://python-reference.readthedocs.io/en/latest/docs/str/escapes.html](https://python-reference.readthedocs.io/en/latest/ docs/str/escapes.html)
+Códigos Unicodehttps://en.wikipedia.org/wiki/List_of_Unicode_characters
+Nombres para caracteres Unicode[https://www.unicode.org/Public/9.0.0/ucd/UnicodeData.txt](https://www.unicode.org/Public/9.0.0/ucd /UnicodeData.txt)
+[ ]
+string = "esta's clases son divertidas "
+print(string)
+esta's clases son divertidas 
+[ ]
+string = "It's Monthy Python"
+print(string)
+[ ]
+string = 'It\'s Monthy Python'
+print(string)
+It's Monthy Python
+[ ]
+string = "\\\t\'\t\""
+string = "hola\ncomo estas"
+print(string)
+hola
+como estas
+[ ]
+string = "text1\ntext2"
+print(string)
+text1
+text2
+[ ]
+print("\u00A5")
+print("\N{YEN SIGN}")
+¥
+¥
+cadenas de varias líneas
+Si desea una cadena que abarque varias líneas, simplemente comience con tres comillas simples o comillas dobles y termínelas con las mismas tres comillas simples o comillas dobles
+[ ]
+string_1 = """text1
+text2"""
+print(string_1)
+text1
+text2
+[ ]
+string_1 = '''text1
+text2'''
+print(string_1)
+[ ]
+string_1 = """text1
+"text2" """
+print(string_1)
+text1
+"text2" 
+Your may prefer to start a multiline comment on the 'next' line. In that case you should add a backslash, otherwise an extra blank line will be printed
+[ ]
+string_1 = """\
+text1
+text2
+"""
+print(string_1)
+text1
+text2
+
+[ ]
+string_1 = """
+text1
+text2
+"""
+print(string_1)
+
+text1
+text2
+
+Indexación de un carácter en una cadena
+Un índice no negativo indexa desde la izquierda, donde 0 se refiere al carácter más a la izquierda
+Un índice negativo indexa desde la derecha, donde -1 se refiere al carácter más a la derecha
+Si su índice va más allá de los caracteres disponibles en la cadena, obtiene un IndexError
+[ ]
+string_1 = '12345'
+[ ]
+print(string_1[0])
+print(string_1[3])
+
+[ ]
+print(string_1[-1])
+print(string_1[-3])
+
+[ ]
+#por que no hay 5 numeros empiza desde el 0 y termina en 4
+print(string_1[5])
+
+[ ]
+print(string_1[-6])
+
+Cortar un conjunto de caracteres de una cadena con [start:end]
+Inicio indica el primer carácter de la cadena que debe seleccionarse, fin - 1 indica el último carácter que debe seleccionarse
+Si se omite el primer índice, el valor predeterminado es 0, si se omite el último índice, el valor predeterminado es la longitud de la cadena
+[ ]
+#seleccionar los numeros : 
+string_1 = '12345'
+print(string_1[1:3])
+23
+[ ]
+print(string_1[-4:-2])
+23
+[ ]
+# no hay ningun numero da entender que coje desde del 0 
+print(string_1[:3])
+# no hay ningun numero da entender que coje desde el final
+print(string_1[3:])
+# no hay ningun numero da entender que coge todos lo numeros 
+print(string_1[:])
+123
+45
+12345
+[ ]
+print(string_1[-2:])
+print(string_1[:-2])
+45
+123
+Cortar una cadena agregando un contador de pasos [inicio:fin:paso]
+Si el contador de pasos es positivo indica que se deben seleccionar los caracteres con inicio de índice + tiempos de paso 0,1,2, ...
+Si el paso del contador de pasos es negativo, indica que se deben seleccionar los caracteres con fin de índice - paso por 0,1,2, ...
+Sin embargo, tenemos que dejar de seleccionar cuando la selección alcanza (o va más allá) del carácter indicado por el índice final
+Si no se proporciona un valor de paso, el valor predeterminado es 1
+[ ]
+string_1 = '12345'
+print(string_1[1:5:1])
+print(string_1[5:1:-1])
+print(string_1[1:5:-1]) 
+# no selecciona nada: desde el principio hasta el final tiene que estar en la misma dirección que el contador de pasos
+# si el contador de pasos es positivo la posición indicada por fin tiene que estar a la derecha de la posición indicada por inicio
+# si el contador de pasos es negativo, la posición indicada por el final tiene que estar a la izquierda de la posición indicada por el inicio
+print(string_1[5:1:1])  
+2345
+543
+
+
+[ ]
+print(string_1[1:5:2])
+print(string_1[5:1:-2])
+24
+53
+[ ]
+print(string_1[:2:-1])
+print(string_1[::-1])
+54
+54321
+Editando cadenas(string)
+Le mostramos un método, hay más pero no los tratamos en el curso porque son menos flexibles y legibles. Menos Pythonico como diría un verdadero creyente de Python
+[ ]
+numero = 9
+name = "Person haha numero "
+print(name)
+Person haha numero 
+[ ]
+name_1 = "danae"
+cantidad = 2
+string = f"Hola {name_1} y {' persona_2'}\nDo you want {cantidad*2} coffee" 
+print (string)
+Hola danae y  persona_2
+Do you want 4 coffee
+[ ]
+name = "danae"
+amount = 2
+string = f"""Hola {name}
+Do you want {amount*2} coffee
+"""
+print (string)
+Hola danae
+Do you want 4 coffee
+
+Haz doble clic (o ingresa) para editar
+
+Booleans
+[ ]
+edad = 70
+blood_type = 'A'
+print(edad > 15)
+print(edad< 60)
+print(blood_type == 'A')
+print(blood_type == 'B')
+True
+False
+True
+False
+[ ]
+print(edad > 15 and edad < 60)
+print(15 < edad < 60)
+False
+False
+[ ]
+
+#
+print(edad > 15 and (blood_type == 'A' or blood_type == 'B'))
+True
+Si usa ciertos objetos en una configuración de booleans, se verán como Verdadero o Falso
+Los siguientes valores se verán como falsos, todos los demás como verdaderos. En lenguaje informático llamamos a estos valores False y a todos los demás True
+[ ]
+from decimal import Decimal
+from fractions import Fraction
+print(bool(None))
+print(bool(False))
+print(bool(""))
+print(bool(0))
+print(bool(0.0))
+print(bool(0j))
+print(bool(Decimal(0)))
+print(bool(Fraction(0, 1)))
+print(bool([]))
+print(bool({}))
+print(bool(tuple()))
+print(bool(set()))
+False
+False
+False
+False
+False
+False
+False
+False
+False
+False
+False
+False
+'and' y 'or'
+[ ]
+print(True or True)
+print(True and True)
+
+print(True or False)
+print(True and False)
+
+print(False or True)
+print(False and True)
+
+print(False or False)
+print(False and False)
+True
+True
+True
+False
+True
+False
+False
+False
+Parece simple, pero en realidad Python devuelve el valor que hace and , or sean definitivamente verdaderos o falsos.
+[ ]
+#imprime falso o verdadero 
+print("" or "Default value")
+print("1" or "Default value")
+Default value
+1
+Use de not
+[ ]
+print(not True)
+print(not False)
+
+print(not '1')
+print(not '')
+False
+True
+False
+True
+[ ]
+boolean = 'porque'
+
+if boolean == True :
+    print('Bye, bye')
+else:
+    print(1 + 1)
+2
+[ ]
+boolean=True
+if boolean == True:
+     print(1 + 1)
+else:
+    print('Bye, bye')
+2
+Python hace poca conversión de tipos, en comparación con otros lenguajes
+[ ]
+print(1 + '1')
+
+A pesar de que lo siguinete funciona las transformaciones implicitas solo funcionan entre los mismo tipos de datos, numeros con numeros de punto flotante
+[ ]
+print(1 + 1.0)
+2.0
+[ ]
+#numero entero float 
+print(float(1) + 1.0)
+#int entero
+print(1 + int(1.0))
+2.0
+2
+En Python, a menudo puedes hacer una conversión de tipo explícita
+[ ]
+value= 1 + int('1')
+print(value)
+2
+[ ]
+print(int('1'))
+print(float('1'))
+print(bool('1'))
+1
+1.0
+True
+[ ]
+#esta en caracter
+print(1 == '1')
+False
+[ ]
+#str ayuda a convertir en numero  
+print(str(1) == '1')
+True
+Collecciones
+Una colección es un objeto cuyo valor es una colección de direcciones, cada dirección de esa colección apunta a (la dirección de) un objeto separado
+Si decimos con referencia a colecciones, que una colección es inmutable o mutable nos referimos a los objetos individuales señalados por esas direcciones, en la colección la mutabilidad se decide por el tipo de objeto individual
+Listas
+Las listas son mutables
+[ ]
+
+#siemore debe estar cerrados en corchetes en una lista 
+
+
+list_1 = [1, 2, 3]
+print(f"The value of list_1 is {list_1} and its address is {id(list_1)}")
+list_1[1] = 1
+print(f"The value of list_1 is {list_1} and its address is {id(list_1)}")
+The value of list_1 is [1, 2, 3] and its address is 140145627708304
+The value of list_1 is [1, 1, 3] and its address is 140145627708304
+[ ]
+list_1 = [1, 2, 3]
+print(f"The value of list_1 is {list_1} and its address is {id(list_1)}")
+list_1 = [1, 1, 3]
+print(f"The value of list_1 is {list_1} and its address is {id(list_1)}")
+The value of list_1 is [1, 2, 3] and its address is 140145626883888
+The value of list_1 is [1, 1, 3] and its address is 140145627384000
+[ ]
+list_1 = [1, 2, 3]
+print(f"The value of list_1 is {list_1} and its address is {id(list_1)}")
+list_1 = []
+print(f"The value of list_1 is {list_1} and its address is {id(list_1)}")
+Creacion de lista
+[ ]
+from decimal import Decimal
+from fractions import Fraction
+# Puedes guardar lo que sea en una lista
+list_1 = ['A', True, 1,2.0, Decimal(1), Fraction(1,3)] 
+print(list_1)
+Indexación de un elemento en una lista (esto funciona igual que la indexación y el recorte de una cadena, así que si entiende que esto debería ser fácil
+Un índice no negativo indexa desde la izquierda, donde 0 se refiere al elemento más a la izquierda
+Un índice negativo indexa desde la derecha, donde -1 se refiere al elemento más a la derecha
+Si su índice va más allá de los elementos disponibles en la lista, obtiene un IndexError
+[ ]
+list_1 = [1,2,3,4,5]
+[ ]
+print(list_1[0])
+print(list_1[3])
+1
+4
+[ ]
+print(list_1[-1])
+print(list_1[-3])
+5
+3
+[ ]
+#error por que no existe ese indice
+print(list_1[5])
+
+[ ]
+print(list_1[-6])
+Cortar un conjunto de elementos de una lista con [start:end]
+Inicio indica el primer elemento de la lista que debe seleccionarse, fin - 1 indica el último elemento que debe seleccionarse
+Si se omite el primer índice, el valor predeterminado es 0, si se omite el último índice, el valor predeterminado es la longitud de la lista
+[ ]
+
+print(list_1[1:3])
+print(list_1[-3:-2])
+[2, 3]
+[3]
+[ ]
+list_1 = [1,2,3,4,5]
+[ ]
+print(list_1[:3])
+print(list_1[3:])
+print(list_1[:])
+[1, 2, 3]
+[4, 5]
+[1, 2, 3, 4, 5]
+[ ]
+#s
+print(list_1[-2:])
+print(list_1[:-2])
+[4, 5]
+[1, 2, 3]
+Cortar una lista agregando un contador de pasos [inicio:fin:paso]
+Si el contador de pasos es positivo indica que se deben seleccionar los elementos con inicio de índice + tiempos de paso 0,1,2, ...
+Si el contador de pasos es negativo indica que se deben seleccionar los elementos con final de índice - tiempos de paso 0,1,2, ...
+Sin embargo, tenemos que dejar de seleccionar cuando la selección alcanza (o va más allá) del elemento indicado por el índice final
+Si no se proporciona un valor de paso, el valor predeterminado es 1
+[ ]
+list_1 = [1,2,3,4,5]
+#si pones un numero en la mitad no lo toma encuenta en ka listas
+print(list_1[1:510:1])
+print(list_1[5:1:-1])
+print(list_1[1:5:-1]) 
+# no selecciona nada: desde el principio hasta el final tiene que estar en la misma dirección que el contador de pasos
+# si el contador de pasos es positivo la posición indicada por fin tiene que estar a la derecha de la posición indicada por inicio
+# si el contador de pasos es negativo, la posición indicada por el final tiene que estar a la izquierda de la posición indicada por el inicio
+print(list_1[5:1:-1])  
+# no selecciona nada: desde el principio hasta el final tiene que estar en la misma dirección que el contador de pasos
+# si el contador de pasos es positivo la posición indicada por fin tiene que estar a la derecha de la posición indicada por inicio
+# si el contador de pasos es negativo, la posición indicada por el final tiene que estar a la izquierda de la posición indicada por el inicio
+[2, 3, 4, 5]
+[5, 4, 3]
+[]
+[5, 4, 3]
+[ ]
+list_1 = [1,2,3,4,5]
+print(list_1[1:5:2])
+print(list_1[5:1:-2])
+[2, 4]
+[5, 3]
+[ ]
+list_1 = [1,2,3,4,5]
+print(list_1[:2:-1])
+
+print(list_1[::-1])
+[5, 4]
+[5, 4, 3, 2, 1]
+[ ]
+list_1 = ['1', '2', '3', '4', '5']
+list_2 = list_1
+list_3 = list_1[:]
+print(list_1 == list_2 == list_3)
+print(list_1 is list_2)
+# todo es igual pero aqui se pregunta si la lista 1 es lista 2 falso
+print(list_1 is list_3)
+True
+True
+False
+Cortar con [:] crea una copia de una lista con los mismos valores (direcciones de elementos) pero una identificación diferente, por lo que se crea un nuevo objeto
+[ ]
+list_1 = [1, 2, 3]
+list_2 = list_1 
+# El objeto [1, 2, 3] ahora tiene dos nombres
+print(list_1 is list_2)
+list_3 = list_2[:]
+# list_2[:] crea un nuevo objeto, sin embargo con el mismo contenido [1, 2, 3], pero diferente id 
+print(list_2 is list_3)
+print(list_2 == list_3)
+True
+False
+True
+Las listas pueden contener listas y formar tablas de múltiples dimensiones
+Un ejemplo de tres en raya https://en.wikipedia.org/wiki/Tic-tac-toe
+[ ]
+
+[ ]
+lista_1 =((1,2,3,4),(-20,-30,-90))
+# el primer corchete sellecciona la primera lista
+#y el segundo corchete coge el numero de la primera lista
+print(lista_1[0][0])
+1
+[ ]
+tic_tac_toe_board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+# Esta es la situación inicial en Tic-tac-toe donde nadie hizo un movimiento todavía
+# Si toca la celda exactamente en el medio, escribe
+tic_tac_toe_board[1][1] = 'X'
+# El resultado es
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+# Si tu oponente juega la celda a tu derecha escribes
+tic_tac_toe_board[1][2] = 'O'
+# el resultado es 
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+# el resto puede ser 
+tic_tac_toe_board[0][2] = 'X'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+tic_tac_toe_board[2][0] = 'O'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+tic_tac_toe_board[0][0] = 'X'
+# resultado final
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print()
+
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+
+[' ', ' ', ' ']
+[' ', 'X', ' ']
+[' ', ' ', ' ']
+
+[' ', ' ', ' ']
+[' ', 'X', 'O']
+[' ', ' ', ' ']
+
+[' ', ' ', 'X']
+[' ', 'X', 'O']
+[' ', ' ', ' ']
+
+[' ', ' ', 'X']
+[' ', 'X', 'O']
+['O', ' ', ' ']
+
+['X', ' ', 'X']
+[' ', 'X', 'O']
+['O', ' ', ' ']
+
+[ ]
+tic_tac_toe_board = [['0 ', '1', '2 '], ['0 ', ' 1', '2 '], ['0 ', ' 1', ' 2']]
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print('/n') 
+tic_tac_toe_board[1][1] = 'X'
+# Esta es
+print(tic_tac_toe_board)
+['0 ', '1', '2 ']
+['0 ', ' 1', '2 ']
+['0 ', ' 1', ' 2']
+/n
+[['0 ', '1', '2 '], ['0 ', 'X', '2 '], ['0 ', ' 1', ' 2']]
+Tuplas
+Las tuplas son immutables
+Creacion de tuplas
+[ ]
+
+#tuplas siempre va entre parentecis
+from decimal import Decimal
+from fractions import Fraction
+tuple_1=('A', True, 1, 2.0, Decimal(1), Fraction(1,3))
+print(tuple_1)
+('A', True, 1, 2.0, Decimal('1'), Fraction(1, 3))
+Una tupla con un solo elemento
+[ ]
+tuple_1 = (3)
+print(type(tuple_1),tuple_1)
+tuple_1 = (3,)
+print(type(tuple_1),tuple_1)
+<class 'int'> 3
+<class 'tuple'> (3,)
+Diferencias entre tuplas y listas
+Puedes cambiar una lista pero no una tupla
+[ ]
+from decimal import Decimal
+from fractions import Fraction
+list_1 = ['A', True, 1,2.0, Decimal(1), Fraction(1,3)]
+tuple_1 = ('A', True, 1,2.0, Decimal(1), Fraction(1,3))
+list_1[3] = 3.0
+#tuple_1[3.0] = 3.0
+Puedes hacer una tupla sin parentesis
+[ ]
+tuple_1 = (1,2,3)
+tuple_2 = 1,2,3
+print(tuple_1)
+print(tuple_2)
+(1, 2, 3)
+(1, 2, 3)
+La indexación y el corte funcionan igual con tuplas que con listas, sin embargo, hay una sutil diferencia cuando se usa el segmento [:]. En el caso de una tupla, no se crea ningún objeto nuevo, por lo que tuple_1 = tuple_2 tiene exactamente el mismo resultado que tuple_1 = tuple_2[:]
+[ ]
+tuple_1 = (1, 2, 3)
+tuple_2 = tuple_1 
+tuple_3 = tuple_2[:]
+print(tuple_1 is tuple_2 is tuple_3)
+True
+A nice trick only with tuples
+[ ]
+#sale error por que no se puede seleccionar 
+x,y=1,2,3
+print(x)
+print(y)
+
+[ ]
+x = 1
+y = 2
+print (x, y)
+x, y = y, x
+print (x, y)
+1 2
+2 1
+Diccionarios
+Los diccionarios son mutables
+[ ]
+↳ 8 celdas ocultas
+Sets
+Sets are mutable
+Creando un set
+[ ]
+↳ 1 celda oculta
+Los elementos en un set deben ser inmutables
+[ ]
+↳ 3 celdas ocultas
+Qué diferencia a un conjunto de listas y tuplas
+Los conjuntos nunca contienen el mismo elemento dos veces
+[ ]
+↳ 3 celdas ocultas
+Métodos pertenecientes a tipos de datos
+Dale un vistazo a estos métodos y experimenta con ellos. No es necesario que los recuerdes todos, pero es bueno tener una idea sobre las posibilidades y tal vez pueda usarlos. Información fácil entender sobre los métodos:
+Para cadenas: https://www.w3schools.com/python/python_strings.asp solo la última tabla
+Para listas: https://www.w3schools.com/python/python_lists.asp solo la última tabla
+Para tuplas: https://www.w3schools.com/python/python_tuples.asp solo la última tabla
+Para conjuntos: https://www.w3schools.com/python/python_sets.asp solo la última tabla
+Para diccionarios: https://www.w3schools.com/python/python_dictionaries.asp solo la última tabla
+Por cierto, los sitios web de w3school no están bien vistos por los especialistas, debido a su carácter descuidado, y de hecho hay descuido, pero aprender un tema determinado rápido es un buen comienzo, pero más adelante en la vida, tal vez no presumas de tener lo usé ;-)
+Observaciones finales sobre tipos de datos
+Como crear listas , tuplas , etc vacias
+[ ]
+↳ 2 celdas ocultas
+Puede usar colecciones como valores en listas, tuplas y diccionarios, pero las únicas colecciones como keys en los diccionarios son tuplas, ya que los keys de los diccionarios deben ser inmutables
+[ ]
+↳ 1 celda oculta
+Immutabilidad y mutabilidad no son transitivas
+[ ]
+↳ 6 celdas ocultas
+Preguntas
+1 Suponga que tiene una lista [1, 2, 3, 2, 1] y desea crear una nueva lista sin números dobles, después de resolver este problema, intente reescribirla como una sola línea
+Un one liner en programación es un programa existente de una sola línea. Si no logras escribir una sola línea, no te preocupes. el codigo one liner es a menudo difícile de leer y, como hemos aprendido esta semana: los lenguajes de programación están destinados a ser legibles para las personas. Así que no te preocupes si estás usando demasiado código para resolver un problema, debes preguntarte: ¿yo o alguien más entenderá esto dentro de 3 años?
+[2]
+0 s
+#La diferencia de una lista con un conjunto es que en una lista se repite  
+
+lista = [1,2,3,2,1]
+conjunto = set(lista)
+lista_2 = list(conjunto)
+print(lista)
+print(lista_2)
+[1, 2, 3, 2, 1]
+[1, 2, 3]
+2 Slicing puede tener 3 parámetros, inicio, final y paso. Sin embargo, a menudo escribirá o leerá operaciones de corte con menos de 3 parámetros. En esta pregunta, debe volver a escribir todos los ejemplos en operaciones de corte con 3 parámetros. Después de haberlas reescrito, verifique si sus respuestas dan los mismos resultados
+[3]
+0 s
+string_1 = 'abcde'
+print(string_1[1:3:])
+print(string_1[-3:-2:])
+
+print(string_1[:3:])
+print(string_1[3:])
+print(string_1[:])
+
+print(string_1[-2:])
+print(string_1[:-2])
+
+print(string_1[::])
+print(string_1[::-1])
+
+print(string_1[:3:1])
+print(string_1[:3:-1])
+
+print(string_1[1::])
+print(string_1[:1:-1])
+
+bc
+c
+abc
+de
+abcde
+de
+abc
+abcde
+edcba
+abc
+e
+bcde
+edc
+3 Hemos construido un diccionario que se puede usar para encontrar el resultado si dos booleanos están conectados con el operador y
+Reescribe este diccionario para encontrar el resultado si dos booleanos están conectados con el operador o
+Python no tiene un operador XOR, busque en Internet lo que se supone que debe hacer el operador XOR y cree un diccionario que proporcione el resultado de una operación XOR
+[20]
+0 s
+age = 40
+blood_type = 'A'
+my_and = {(True, True): True, (True, False): False, (False, True): False, (False, False): False }
+print(my_and[age < 70, blood_type == 'B'])
+False
+[21]
+0 s
+age = 40
+blood_type = 'A'
+my_and = {(True, True): True, (True, False): True, (False, True): True, (False, False): False }
+print(my_and[age < 70, blood_type == 'B'])
+True
+4 En 'Las listas pueden contener listas y así formar tablas de múltiples dimensiones' se les mostro una secuencia ganadora en tres en raya. Como es muy importante para el análisis de datos y la visualización de datos que se sienta cómodo trabajando con tablas poli-dimensionales, le pedimos que reescriba la secuencia con un segundo jugador más inteligente (o un jugador que aprendió el juego de memoria) donde el juego termina en un empate.
+[13]
+0 s
+tic_tac_toe_board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+tic_tac_toe_board[1][1] = 'X'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print() 
+tic_tac_toe_board[1][2] = 'O'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print()
+tic_tac_toe_board[0][2] = 'X'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print()
+tic_tac_toe_board[2][0] = 'O'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print()
+tic_tac_toe_board[0][0] = 'X'
+print(tic_tac_toe_board[0]) 
+print(tic_tac_toe_board[1]) 
+print(tic_tac_toe_board[2])
+print()# And the next move X wins independent what player O plays
+'juego'
+juego = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+juego[2][1]="x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+juego[0][0]="O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+juego[1][1]="x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+juego[1][0]= "O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+juego[1][2]= "x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+juego[2][0]="O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+
+[' ', ' ', ' ']
+[' ', 'X', ' ']
+[' ', ' ', ' ']
+
+[' ', ' ', ' ']
+[' ', 'X', 'O']
+[' ', ' ', ' ']
+
+[' ', ' ', 'X']
+[' ', 'X', 'O']
+[' ', ' ', ' ']
+
+[' ', ' ', 'X']
+[' ', 'X', 'O']
+['O', ' ', ' ']
+
+['X', ' ', 'X']
+[' ', 'X', 'O']
+['O', ' ', ' ']
+
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+[' ', 'x', ' ']
+
+['O', ' ', ' ']
+[' ', ' ', ' ']
+[' ', 'x', ' ']
+
+['O', ' ', ' ']
+[' ', 'x', ' ']
+[' ', 'x', ' ']
+
+['O', ' ', ' ']
+['O', 'x', ' ']
+[' ', 'x', ' ']
+
+['O', ' ', ' ']
+['O', 'x', 'x']
+[' ', 'x', ' ']
+
+['O', ' ', ' ']
+['O', 'x', 'x']
+['O', 'x', ' ']
+
+[7]
+0 s
+juego = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+#Empieza el juego 
+
+juego[0][1]="x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[1][1]="O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[0][2]="x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[0][0]= "O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[2][2]= "x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[1][2]="O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+
+juego[1][0]= "x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[2][0]="O"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+
+juego[2][1]= "x"
+print(juego[0])
+print(juego[1])
+print(juego[2])
+print()
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+
+[' ', 'x', ' ']
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+
+[' ', 'x', ' ']
+[' ', 'O', ' ']
+[' ', ' ', ' ']
+
+[' ', 'x', 'x']
+[' ', 'O', ' ']
+[' ', ' ', ' ']
+
+['O', 'x', 'x']
+[' ', 'O', ' ']
+[' ', ' ', ' ']
+
+['O', 'x', 'x']
+[' ', 'O', ' ']
+[' ', ' ', 'x']
+
+['O', 'x', 'x']
+[' ', 'O', 'O']
+[' ', ' ', 'x']
+
+['O', 'x', 'x']
+['x', 'O', 'O']
+[' ', ' ', 'x']
+
+['O', 'x', 'x']
+['x', 'O', 'O']
+['O', ' ', 'x']
+
+['O', 'x', 'x']
+['x', 'O', 'O']
+['O', 'x', 'x']
+
+5 Ejecute el siguiente programa, vea si puede encontrar algo extraño y explique el resultado usando su conocimiento de recolección de basura
+[18]
+0 s
+list_5 = [1, 2, 3]
+print(f"The value of the list refered to by list_5 is {list_5} and its address is {id(list_5)}")
+list_5 = [1 , 1, 3]
+print(f"The value of the list refered to by list_5 is {list_5} and its address is {id(list_5)}")
+list_5 = [1, 1, 4]
+print(f"The value of the list refered to by list_5 is {list_5} and its address is {id(list_5)}")
+The value of the list refered to by list_5 is [1, 2, 3] and its address is 139827896488896
+The value of the list refered to by list_5 is [1, 1, 3] and its address is 139827896350352
+The value of the list refered to by list_5 is [1, 1, 4] and its address is 139827896488896
+[19]
+0 s
+list_5 = [1, 2, 3]
+print(f"The value of the list refered to by list_5 is {list_5} and its address is {id(list_5)}")
+list_5 = [1 , 1, 3]
+print(f"The value of the list refered to by list_5 is {list_5} and its address is {id(list_5)}")
+#El error es en la asignación del único codigo id este codigo nos ayuda a dar un
+#solo identificador pero la primer lista es [1,2,3] y su id es 140177600007136
+# mientras que ejecutamos la otra lista con [1,1,4] y su id sigue siendo el mismo
+# y eso no puede ser posible .
+list_5 = [1, 1, 4]
+print(f"The value of the list refered to by list_5 is {list_5} and its address is {id(list_5)}")
+The value of the list refered to by list_5 is [1, 2, 3] and its address is 139827896525760
+The value of the list refered to by list_5 is [1, 1, 3] and its address is 139827896488896
+The value of the list refered to by list_5 is [1, 1, 4] and its address is 139827896525760
+6 Las cadenas son inmutables, pero ¿por qué funciona lo siguiente? ¿Claramente cambiamos el valor de la cadena llamada string_1? ¿Qué afirmaciones agregaría para aclarar lo que ha sucedido? usar id
+[15]
+0 s
+#id sirva para dar un codigo distinto 
+string_1 = "text 1"
+print(id(string_1))
+string_1 = "text 2"
+print(id(string_1))
+139827896500976
+139827896517872
+[15]
+0 s
